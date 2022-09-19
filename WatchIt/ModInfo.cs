@@ -6,7 +6,7 @@ namespace WatchIt
 {
     public class ModInfo : IUserMod
     {
-        public string Name => "Watch It!";
+        public string Name => "WatchIt! Revisited";
         public string Description => "Watch status of the important capacities in the game.";
 
         private static readonly string[] ShowNumericalDigitsLabels =
