@@ -145,6 +145,13 @@ namespace WatchIt
                 ModConfig.Instance.Save();
             });
 
+            selected = ModConfig.Instance.UseClassicIcons;
+            group.AddCheckbox("Use Classic ICONS", selected, sel =>
+            {
+                ModConfig.Instance.UseClassicIcons = sel;
+                ModConfig.Instance.Save();
+            });
+
             group = helper.AddGroup("Gauges");
 
             selected = ModConfig.Instance.ElectricityAvailability;
@@ -399,6 +406,8 @@ namespace WatchIt
                 ModConfig.Instance.ProblemMaxItems = result;
                 ModConfig.Instance.Save();
             });
+
+
         }
 
         private int GetSelectedOptionIndex(int[] option, int value)

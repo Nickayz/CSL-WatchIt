@@ -20,16 +20,20 @@ namespace WatchIt.Panels
         private UITabstrip _tabstrip;
         private UITabContainer _tabContainer;
         private UIButton _templateButton;
+        private UIButton _problemFilteringButton;
 
         private UIPanel _problemPanel;
         private UIScrollablePanel _problemScrollablePanel;
         private UIScrollbar _problemScrollbar;
+
         private UISlicedSprite _problemScrollbarTrack;
         private UISlicedSprite _problemScrollbarThumb;
         private UILabel _lastUpdated;
         private UILabel _counter;
 
         private List<ProblemItem> _problemItems;
+
+        private ProblemFilteringPanel _problemFilteringPanel;
 
         public override void Awake()
         {
@@ -52,6 +56,12 @@ namespace WatchIt.Panels
             try
             {
                 _notificationsAtlas = ResourceLoader.GetAtlas("Notifications");
+
+                if(_problemFilteringPanel == null)
+                {
+                    _problemFilteringPanel = GameObject.Find("WatchItProblemFilteringPanel")?.GetComponent<ProblemFilteringPanel>();
+                }
+                
 
                 CreateUI();
             }
@@ -154,6 +164,14 @@ namespace WatchIt.Panels
                 {
                     Destroy(_title.gameObject);
                 }
+                if(_problemFilteringButton != null)
+                {
+                    Destroy(_problemFilteringButton.gameObject);
+                }
+                if (_problemFilteringPanel != null)
+                {
+                    Destroy(_problemFilteringPanel.gameObject);
+                }
             }
             catch (Exception e)
             {
@@ -216,7 +234,7 @@ namespace WatchIt.Panels
                 {
 
                 }
-
+                               
                 _problemPanel = UIUtils.CreatePanel(this, "ProblemList");
                 _problemPanel.width = width - 40f;
                 _problemPanel.height = height - 145f;
@@ -261,6 +279,26 @@ namespace WatchIt.Panels
                 _lastUpdated.textAlignment = UIHorizontalAlignment.Left;
                 _lastUpdated.verticalAlignment = UIVerticalAlignment.Middle;
                 _lastUpdated.relativePosition = new Vector3(30f, height - 38f);
+
+                _problemFilteringButton = UIUtils.CreateButton(this, "Filter", "ButtonMenu");
+                _problemFilteringButton.tooltip = "Filter Problems";
+                _problemFilteringButton.text = "Filter Problems";
+                _problemFilteringButton.size = new Vector2(150f, 38f);
+                _problemFilteringButton.relativePosition = new Vector3(width/2 - _problemFilteringButton.width/2, height - _problemFilteringButton.height/2 - 38f);
+                _problemFilteringButton.eventClicked += (component, eventParam) =>
+                {
+                    if (!eventParam.used)
+                    {
+                        if (_problemPanel != null)
+                        {
+                            _problemFilteringPanel.Show();
+                            _problemFilteringPanel.BringToFront();
+                        }
+                    }
+
+                    eventParam.Use();
+                };
+
 
                 _counter = UIUtils.CreateLabel(this, "Counter", "0 of 0");
                 _counter.autoSize = false;
@@ -352,63 +390,72 @@ namespace WatchIt.Panels
                     NetNode netNode;
                     NetSegment netSegment;
 
-                    int buildingShown = 0;
-                    int netNodesShown = 0;
-                    int netSegmentShown = 0;
+                    int ProblemsShown = 0;
 
-                    if (_problemItems != null)
+                    if (_problemItems == null)
+                        return;
+
+
+                    if (_tabstrip.selectedIndex == 0)
                     {
-                        for (int i = 0; i < _problemItems.Count; i++)
+                        for (int i = 0; i < problemManager.BuildingsWithProblems.Count && ProblemsShown < _problemItems.Count; i++)
                         {
-                            if (_tabstrip.selectedIndex == 0)
+                            building = buildingManager.m_buildings.m_buffer[problemManager.BuildingsWithProblems[i]];
+
+                            if ((building.m_problems & _problemFilteringPanel._problemComparator).IsNotNone)
                             {
-                                if (i < problemManager.BuildingsWithProblems.Count)
-                                {
-                                    building = buildingManager.m_buildings.m_buffer[problemManager.BuildingsWithProblems[buildingShown]];
+                                _problemItems[ProblemsShown].UpdateProblemItem(problemManager.GetBuildingName(problemManager.BuildingsWithProblems[i]),
+                                    problemManager.GetSprites(building), problemManager.GetBuildingInstanceID(problemManager.BuildingsWithProblems[i]),
+                                    problemManager.GetPosition(building));
 
-                                    _problemItems[i].UpdateProblemItem(problemManager.GetBuildingName(problemManager.BuildingsWithProblems[buildingShown]), problemManager.GetSprites(building), problemManager.GetBuildingInstanceID(problemManager.BuildingsWithProblems[buildingShown]), problemManager.GetPosition(building));
-
-                                    _problemItems[i].Show();
-                                    buildingShown++;
-                                }
-                                else
-                                {
-                                    _problemItems[i].Hide();
-                                }
-
-                                _counter.text = $"{buildingShown} of {problemManager.BuildingsWithProblems.Count} buildings";
+                                _problemItems[ProblemsShown].Show();
+                                ProblemsShown++;
                             }
-                            else if (_tabstrip.selectedIndex == 1)
+                        }
+                        _counter.text = $"{ProblemsShown} of {problemManager.BuildingsWithProblems.Count} buildings";
+                    }
+                    else if (_tabstrip.selectedIndex == 1)
+                    {
+                        for (int i = 0; i < problemManager.NetNodesWithProblems.Count && ProblemsShown < _problemItems.Count; i++)
+                        {
+                            netNode = netManager.m_nodes.m_buffer[problemManager.NetNodesWithProblems[i]];
+
+                            if ((netNode.m_problems & _problemFilteringPanel._problemComparator).IsNotNone)
                             {
-                                if (i < problemManager.NetNodesWithProblems.Count)
-                                {
-                                    netNode = netManager.m_nodes.m_buffer[problemManager.NetNodesWithProblems[netNodesShown]];
+                                _problemItems[ProblemsShown].UpdateProblemItem(problemManager.GetNetNodeName(netNode), problemManager.GetSprites(netNode),
+                                      problemManager.GetNetNodeInstanceID(problemManager.NetNodesWithProblems[i]), problemManager.GetPosition(netNode));
 
-                                    _problemItems[i].UpdateProblemItem(problemManager.GetNetNodeName(netNode), problemManager.GetSprites(netNode), problemManager.GetNetNodeInstanceID(problemManager.NetNodesWithProblems[netNodesShown]), problemManager.GetPosition(netNode));
-
-                                    _problemItems[i].Show();
-                                    netNodesShown++;
-                                }
-                                else if (i < problemManager.NetSegmentsWithProblems.Count)
-                                {
-                                    netSegment = netManager.m_segments.m_buffer[problemManager.NetSegmentsWithProblems[netSegmentShown]];
-
-                                    _problemItems[i].UpdateProblemItem(problemManager.GetNetSegmentName(netSegment), problemManager.GetSprites(netSegment), problemManager.GetNetSegmentInstanceID(problemManager.NetSegmentsWithProblems[netSegmentShown]), problemManager.GetPosition(netSegment));
-
-                                    _problemItems[i].Show();
-                                    netSegmentShown++;
-                                }
-                                else
-                                {
-                                    _problemItems[i].Hide();
-                                }
-
-                                _counter.text = $"{netNodesShown + netSegmentShown} of {problemManager.NetNodesWithProblems.Count + problemManager.NetSegmentsWithProblems.Count} networks";
+                                _problemItems[ProblemsShown].Show();
+                                ProblemsShown++;
                             }
                         }
 
-                        _lastUpdated.text = "Updated at " + DateTime.Now.ToLongTimeString();
+                        for (int i = 0; i < problemManager.NetSegmentsWithProblems.Count && ProblemsShown < _problemItems.Count; i++)
+                        {
+                            netSegment = netManager.m_segments.m_buffer[problemManager.NetSegmentsWithProblems[i]];
+
+                            if ((netSegment.m_problems & _problemFilteringPanel._problemComparator).IsNotNone)
+                            {
+                                _problemItems[i].UpdateProblemItem(problemManager.GetNetSegmentName(netSegment), problemManager.GetSprites(netSegment),
+                                  problemManager.GetNetSegmentInstanceID(problemManager.NetSegmentsWithProblems[i]), problemManager.GetPosition(netSegment));
+
+                                _problemItems[ProblemsShown].Show();
+                                ProblemsShown++;
+                            }
+                        }
+                        _counter.text = $"{ProblemsShown} of {problemManager.NetNodesWithProblems.Count + problemManager.NetSegmentsWithProblems.Count} networks";
                     }
+
+
+
+                    while (ProblemsShown < _problemItems.Count)
+                    {
+                        _problemItems[ProblemsShown].Hide();
+                        ProblemsShown++;
+                    }
+
+                    _lastUpdated.text = "Updated at " + DateTime.Now.ToLongTimeString();
+                    
                 }
             }
             catch (Exception e)

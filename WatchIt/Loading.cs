@@ -16,6 +16,7 @@ namespace WatchIt
         private GameObject _gaugePanelGameObject;
         private GameObject _limitPanelGameObject;
         private GameObject _problemPanelGameObject;
+        private GameObject _problemFilteringPanelGameObject;
 
         public override void OnLevelLoaded(LoadMode mode)
         {
@@ -49,6 +50,10 @@ namespace WatchIt
                     _problemPanelGameObject = new GameObject("WatchItProblemPanel");
                     _problemPanelGameObject.transform.parent = uiView.transform;
                     _problemPanelGameObject.AddComponent<ProblemPanel>();
+
+                    _problemFilteringPanelGameObject = new GameObject("WatchItProblemFilteringPanel");
+                    _problemFilteringPanelGameObject.transform.parent = uiView.transform;
+                    _problemFilteringPanelGameObject.AddComponent<ProblemFilteringPanel>();
                 }
             }
             catch (Exception e)

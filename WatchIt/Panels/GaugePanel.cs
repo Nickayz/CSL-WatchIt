@@ -156,55 +156,105 @@ namespace WatchIt.Panels
         {
             try
             {
+                string[] spriteNames = {};
                 if (_watchItAtlas == null)
                 {
-                    string[] spriteNames = new string[]
+                    if (ModConfig.Instance.UseClassicIcons)
                     {
-                        "CircleNormal",
-                        "CircleHovered",
-                        "CirclePressed",
-                        "RectNormal",
-                        "RectHovered",
-                        "RectPressed",
-                        "Drag",
-                        "DragHover",
-                        "GaugeGreen",
-                        "GaugeYellow",
-                        "GaugeRed",
-                        "Electricity",
-                        "Water",
-                        "Sewage",
-                        "Garbage",
-                        "ElementarySchool",
-                        "HighSchool",
-                        "University",
-                        "Healthcare",
-                        "Crematorium",
-                        "FireDepartment",
-                        "PoliceDepartment",
-                        "Jail",
-                        "Heating",
-                        "Landfill",
-                        "Library",
-                        "Cemetery",
-                        "Traffic",
-                        "GroundPollution",
-                        "DrinkingWaterPollution",
-                        "NoisePollution",
-                        "Fire",
-                        "Crime",
-                        "Unemployment",
-                        "Health",
-                        "CityAttractiveness",
-                        "Happiness",
-                        "Statistics",
-                        "Limits",
-                        "Problems"
-                    };
+                        spriteNames = new string[]
+                        {
+                            "CircleNormalClassic",
+                            "CircleHoveredClassic",
+                            "CirclePressedClassic",
+                            "RectNormalClassic",
+                            "RectHoveredClassic",
+                            "RectPressedClassic",
+                            "DragClassic",
+                            "DragHoverClassic",
+                            "GaugeGreenClassic",
+                            "GaugeYellowClassic",
+                            "GaugeRedClassic",
+                            "ElectricityClassic",
+                            "WaterClassic",
+                            "SewageClassic",
+                            "GarbageClassic",
+                            "ElementarySchoolClassic",
+                            "HighSchoolClassic",
+                            "UniversityClassic",
+                            "HealthcareClassic",
+                            "CrematoriumClassic",
+                            "FireDepartmentClassic",
+                            "PoliceDepartmentClassic",
+                            "JailClassic",
+                            "HeatingClassic",
+                            "LandfillClassic",
+                            "LibraryClassic",
+                            "CemeteryClassic",
+                            "TrafficClassic",
+                            "GroundPollutionClassic",
+                            "DrinkingWaterPollutionClassic",
+                            "NoisePollutionClassic",
+                            "FireClassic",
+                            "CrimeClassic",
+                            "UnemploymentClassic",
+                            "HealthClassic",
+                            "CityAttractivenessClassic",
+                            "HappinessClassic",
+                            "StatisticsClassic",
+                            "LimitsClassic",
+                            "ProblemsClassic"
+                        };
+                    }
+                    else
+                    {
+                        spriteNames = new string[] 
+                        {
+                            "CircleNormal",
+                            "CircleHovered",
+                            "CirclePressed",
+                            "RectNormal",
+                            "RectHovered",
+                            "RectPressed",
+                            "Drag",
+                            "DragHover",
+                            "GaugeGreen",
+                            "GaugeYellow",
+                            "GaugeRed",
+                            "Electricity",
+                            "Water",
+                            "Sewage",
+                            "Garbage",
+                            "ElementarySchool",
+                            "HighSchool",
+                            "University",
+                            "Healthcare",
+                            "Crematorium",
+                            "FireDepartment",
+                            "PoliceDepartment",
+                            "Jail",
+                            "Heating",
+                            "Landfill",
+                            "Library",
+                            "Cemetery",
+                            "Traffic",
+                            "GroundPollution",
+                            "DrinkingWaterPollution",
+                            "NoisePollution",
+                            "Fire",
+                            "Crime",
+                            "Unemployment",
+                            "Health",
+                            "CityAttractiveness",
+                            "Happiness",
+                            "Statistics",
+                            "Limits",
+                            "Problems"
+                            };
+};
+                    }
 
-                    _watchItAtlas = ResourceLoader.CreateTextureAtlas("WatchItAtlas", spriteNames, "WatchIt.Icons.");
-                }
-
+                _watchItAtlas = ResourceLoader.CreateTextureAtlas("WatchItAtlas", spriteNames, "WatchIt.Icons.");
+                
                 return _watchItAtlas;
             }
             catch (Exception e)

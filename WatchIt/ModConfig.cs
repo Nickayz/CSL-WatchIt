@@ -55,6 +55,7 @@
         public bool ProblemAutoRefresh { get; set; } = false;
         public bool ProblemAutoClose { get; set; } = true;
         public int ProblemMaxItems { get; set; } = 100;
+        public bool UseClassicIcons { get; set; } = false;
 
         private static ModConfig instance;
 

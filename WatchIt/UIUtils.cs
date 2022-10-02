@@ -234,5 +234,21 @@ namespace WatchIt
 
             return button;
         }
+
+       
+        public static UICheckBox CreateCheckBox(UIComponent parent, string text)
+        {
+            UICheckBox checkBox = parent.AttachUIComponent(UITemplateManager.GetAsGameObject("OptionsCheckBoxTemplate")) as UICheckBox;
+
+            checkBox.text = text;
+            checkBox.isChecked = true;
+
+            checkBox.eventCheckChanged += (component, eventParam) =>
+            {
+                component.parent.Update();
+            };
+
+            return checkBox;
+        }
     }
 }

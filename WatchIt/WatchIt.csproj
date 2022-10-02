@@ -31,16 +31,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CitiesHarmony">
+      <HintPath>F:\SteamLibrary\steamapps\workshop\content\255710\2040656402\CitiesHarmony.dll</HintPath>
+    </Reference>
+    <Reference Include="CitiesHarmony.Harmony">
+      <HintPath>F:\SteamLibrary\steamapps\workshop\content\255710\2040656402\CitiesHarmony.Harmony.dll</HintPath>
     </Reference>
     <Reference Include="ColossalManaged">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
     </Reference>
     <Reference Include="EManagersLib.API">
-      <HintPath>..\..\Assemblies\EManagersLib.API\1.0.0.0\EManagersLib.API.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\workshop\content\255710\2696146165\EManagersLib.API.dll</HintPath>
     </Reference>
     <Reference Include="ICities">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,16 +55,17 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="Managers\ProblemType.cs" />
     <Compile Include="Managers\ProblemManager.cs" />
+    <Compile Include="Panels\ProblemFilteringPanel.cs" />
     <Compile Include="Panels\WarningItem.cs" />
     <Compile Include="Panels\WarningPanel.cs" />
     <Compile Include="Panels\LimitItem.cs" />
@@ -161,6 +168,48 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icons\Problems.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\CemeteryClassic.png" />
+    <Content Include="Icons\CircleHoveredClassic.png" />
+    <Content Include="Icons\CircleNormalClassic.png" />
+    <Content Include="Icons\CirclePressedClassic.png" />
+    <Content Include="Icons\CityAttractivenessClassic.png" />
+    <Content Include="Icons\CrematoriumClassic.png" />
+    <Content Include="Icons\CrimeClassic.png" />
+    <Content Include="Icons\DragClassic.png" />
+    <Content Include="Icons\DragHoverClassic.png" />
+    <Content Include="Icons\DrinkingWaterPollutionClassic.png" />
+    <Content Include="Icons\ElectricityClassic.png" />
+    <Content Include="Icons\ElementarySchoolClassic.png" />
+    <Content Include="Icons\FireClassic.png" />
+    <Content Include="Icons\FireDepartmentClassic.png" />
+    <Content Include="Icons\GarbageClassic.png" />
+    <Content Include="Icons\GaugeGreenClassic.png" />
+    <Content Include="Icons\GaugeRedClassic.png" />
+    <Content Include="Icons\GaugeYellowClassic.png" />
+    <Content Include="Icons\GroundPollutionClassic.png" />
+    <Content Include="Icons\HappinessClassic.png" />
+    <Content Include="Icons\HealthcareClassic.png" />
+    <Content Include="Icons\HealthClassic.png" />
+    <Content Include="Icons\HeatingClassic.png" />
+    <Content Include="Icons\HighSchoolClassic.png" />
+    <Content Include="Icons\JailClassic.png" />
+    <Content Include="Icons\LandfillClassic.png" />
+    <Content Include="Icons\LibraryClassic.png" />
+    <Content Include="Icons\LimitsClassic.png" />
+    <Content Include="Icons\NoisePollutionClassic.png" />
+    <Content Include="Icons\PoliceDepartmentClassic.png" />
+    <Content Include="Icons\ProblemsClassic.png" />
+    <Content Include="Icons\RectHoveredClassic.png" />
+    <Content Include="Icons\RectNormalClassic.png" />
+    <Content Include="Icons\RectPressedClassic.png" />
+    <Content Include="Icons\SewageClassic.png" />
+    <Content Include="Icons\StatisticsClassic.png" />
+    <Content Include="Icons\TrafficClassic.png" />
+    <Content Include="Icons\UnemploymentClassic.png" />
+    <Content Include="Icons\UniversityClassic.png" />
+    <Content Include="Icons\WaterClassic.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
