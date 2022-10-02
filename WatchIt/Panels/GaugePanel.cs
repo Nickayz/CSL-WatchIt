@@ -250,7 +250,7 @@ namespace WatchIt.Panels
                             "Limits",
                             "Problems"
                             };
-};
+                        }
                     }
 
                 _watchItAtlas = ResourceLoader.CreateTextureAtlas("WatchItAtlas", spriteNames, "WatchIt.Icons.");

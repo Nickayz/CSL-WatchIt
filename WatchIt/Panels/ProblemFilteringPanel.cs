@@ -39,11 +39,6 @@ namespace WatchIt.Panels
         private static readonly PositionData<Notification.Problem1>[] _keyNotifications1 = Utils.GetOrderedEnumData<Notification.Problem1>("Text");
         private static readonly PositionData<Notification.Problem2>[] _keyNotifications2 = Utils.GetOrderedEnumData<Notification.Problem2>("Text");
 
-        private static readonly PositionData<Notification.Problem1>[] _keyNotifications1Normal = Utils.GetOrderedEnumData<Notification.Problem1>("Normal");
-        private static readonly PositionData<Notification.Problem1>[] _keyNotifications1Major = Utils.GetOrderedEnumData<Notification.Problem1>("Major");
-        private static readonly PositionData<Notification.Problem1>[] _keyNotifications1Fatal = Utils.GetOrderedEnumData<Notification.Problem1>("Fatal");
-        private static readonly PositionData<Notification.Problem2>[] _keyNotifications2Normal = Utils.GetOrderedEnumData<Notification.Problem2>("Normal");
-
         public override void Awake()
         {
             base.Awake();
