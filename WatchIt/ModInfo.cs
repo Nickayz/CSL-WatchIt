@@ -6,7 +6,8 @@ namespace WatchIt
 {
     public class ModInfo : IUserMod
     {
-        public string Name => "WatchIt! Revisited";
+    
+        public string Name => "Watch It! Revisited";
         public string Description => "Watch status of the important capacities in the game.";
 
         private static readonly string[] ShowNumericalDigitsLabels =
@@ -42,13 +43,14 @@ namespace WatchIt
         public void OnSettingsUI(UIHelperBase helper)
         {
             UIHelperBase group;
-            bool selected;
-            int selectedIndex;
-            float selectedValue;
 
             AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
 
             group = helper.AddGroup(Name + " - " + assemblyName.Version.Major + "." + assemblyName.Version.Minor);
+
+            bool selected;
+            int selectedIndex;
+            float selectedValue;
 
             selectedValue = ModConfig.Instance.RefreshInterval;
             group.AddTextfield("Refresh Interval (in seconds)", selectedValue.ToString(), sel =>
